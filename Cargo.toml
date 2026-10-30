@@ -1,0 +1,39 @@
+[workspace]
+members = ["xtask"]
+resolver = "2"
+
+[package]
+name = "todobot"
+version = "0.1.0"
+edition = "2021"
+description = "Import .ics calendar events into Discord scheduled events"
+repository = "https://github.com/KlevisImeri/TodoBot"
+license = "MIT"
+
+[dependencies]
+anyhow = "1"
+chrono = "0.4"
+chrono-tz = "0.10"
+dotenvy = "0.15"
+icalendar = { version = "0.17", features = ["parser", "chrono-tz", "recurrence"] }
+iso8601 = "0.6"
+poise = "0.7"
+reqwest = { version = "0.13", features = ["json"] }
+rrule = "0.14"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serenity = "0.12"
+tokio = { version = "1", features = ["full"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+wiremock = "0.6"
+
+[profile.release]
+strip = true
+
+[package.metadata.generate-rpm]
+assets = [
+  { source = "target/release/todobot", dest = "/usr/bin/todobot", mode = "755" },
+]

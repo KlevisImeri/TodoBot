@@ -1,0 +1,7 @@
+services:
+  todobot:
+    container_name: todobot
+    build: .
+    env_file:
+      - .env
+    restart: unless-stopped
